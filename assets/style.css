@@ -1,5 +1,7 @@
 body{
-    background-color: #013e66
+    background-color: #013e66;
+    font-family: 'Righteous', cursive;
+    color: black;
 }
 
 .btnStyle{
