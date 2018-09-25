@@ -37,12 +37,15 @@ function removeAndInitPlayers(snap) {
             console.log("Remove failed: " + error.message)
         });
     if (playersNum >= 2) {
+        $('#systemMessage').hide();
         $('#letsPlay').show();
         $("#players").text(playersNum);
-        $('#letsPlay').text('Now choose rock, paper, or scissors')
+        $('#letsPlay').text('Now choose rock, paper, or scissors');
     } else {
+        $('#systemMessage').show();
         $('#letsPlay').hide();
         $("#players").text(playersNum);
+        $('#systemMessage').text('Wait for another player to join.');
     }
 }
 function getUsersGuesses() {
@@ -88,10 +91,10 @@ function printResult() {
         $('#result').text(value);
     })
 }
-
 function reset() {
     location.reload();
 }
+
 $(document).ready(() => {
     $('#restart').hide()
     connectedRef.on("value", addConnection);

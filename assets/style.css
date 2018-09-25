@@ -40,6 +40,11 @@ body{
     margin-top: 5px;
 }
 
+.myWidth{
+    width: 400px;
+    border-radius: 5%;
+}
+
 @keyframes floating {
     from { transform: translate(0,  0px); }
     65%  { transform: translate(0, 15px); }
