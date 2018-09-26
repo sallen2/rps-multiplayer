@@ -16,13 +16,19 @@ var connectionsRef = db.ref("/connections");
 let idRef;
 let id;
 let rpsPlayers;
+let user1;
+let user2;
 let user1Guess;
 let user2Guess;
+let name = ' ';
+let myMessage = db.ref(`/messages`);
+myMessage.set({playerMessage: '', name: 'chat'});
 function addConnection(snapshot) {
     if (snapshot.val()) {
         var con = connectionsRef.push({ guess: false });
         id = con.getKey();
         con.onDisconnect().remove();
+        myMessage.onDisconnect().set({playerMessage:''});
     }
 }
 function removeAndInitPlayers(snap) {
@@ -76,25 +82,49 @@ function compareGuesses() {
         player2ResultRef.set({ result: 'waiting on player' })
     }
     else if (user1Guess === 'rock' && user2Guess === 'paper' || user1Guess === 'paper' && user2Guess === 'scissors' || user1Guess === 'scissors' && user2Guess === 'rock') {
-        player1ResultRef.set({ result: 'loser' })
-        player2ResultRef.set({ result: 'winner' })
+        player1ResultRef.set({ result: 'You lost' })
+        player2ResultRef.set({ result: 'You win' })
     }
     else if (user1Guess === 'rock' && user2Guess === 'scissors' || user1Guess === 'paper' && user2Guess === 'rock' || user1Guess === 'scissors' && user2Guess === 'paper') {
-        player1ResultRef.set({ result: 'winner' })
-        player2ResultRef.set({ result: 'loser' })
+        player1ResultRef.set({ result: 'You win' })
+        player2ResultRef.set({ result: 'You lost' })
     }
 }
 function printResult() {
     let myId = db.ref(`/connections/${id}/result`);
     myId.on('value', function (snap) {
         let value = snap.val().result;
+        $('#result').show();
         $('#result').text(value);
     })
 }
-function reset() {
-    location.reload();
+function playAgain() {
+    let pId = db.ref(`/connections/${id}`);
+    pId.update({myGuess: 'false'})
+    $('.disable').prop('disabled', false);
+    $('#result').hide();
 }
-
+function init(){
+    let init = db.ref(`/connections/${id}`);
+    init.set({guess: false})
+}
+function message(){
+    name = $('#name').val()
+    let playerMessage = $('#message').val();
+    myMessage = db.ref(`/messages`);
+    myMessage.set({playerMessage,name});
+}
+function appendMessage(){
+    myMessage = db.ref(`/messages`);
+    myMessage.on('value', snap =>{
+        let theMessage = snap.val().playerMessage
+        let name = snap.val().name
+        let p = $('<p>');
+        p.addClass('remove');
+        p.text(name + ': ' + theMessage);
+        $('#messageHere').append(p);
+    })
+}
 $(document).ready(() => {
     $('#restart').hide()
     connectedRef.on("value", addConnection);
@@ -102,42 +132,47 @@ $(document).ready(() => {
     $('#rock').on('click', function () {
         let myId = db.ref(`/connections/${id}`);
         myId.set({
-            guess: 'rock'
+            guess: 'rock',
+            myGuess: 'true'
         });
         getUsersGuesses();
         printResult();
         $('.disable').prop('disabled', true);
-        setTimeout(function(){
-            $('#restart').show()
-        },3000)
+        $('#restart').show()
     });
     $('#paper').on('click', function () {
         let myId = db.ref(`/connections/${id}`);
         myId.set({
-            guess: 'paper'
+            guess: 'paper',
+            myGuess: 'true'
         });
         getUsersGuesses();
         printResult();
         $('.disable').prop('disabled', true);
-        setTimeout(function(){
-            $('#restart').show()
-        },3000)
+        $('#restart').show()
     });
     $('#scissors').on('click', function () {
         let myId = db.ref(`/connections/${id}`);
         myId.set({
-            guess: 'scissors'
+            guess: 'scissors',
+            myGuess: 'true'
         });
         getUsersGuesses();
         printResult();
         $('.disable').prop('disabled', true);
-        setTimeout(function(){
-            $('#restart').show()
-        },3000)
+        $('#restart').show()
     });
     $('#restart').on('click', function () {
-        reset();
+        playAgain();
         $('#restart').hide()
     })
+    $('#message').keypress(event=>{
+        if(event.which === 13){
+            message();
+            $('#message').attr('placeholder', 'Message:');
+            $('#message').val('');
+        }
+    })
+    appendMessage();
 });
 

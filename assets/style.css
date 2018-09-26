@@ -10,9 +10,15 @@ body{
 }
 
 .marginTitle{
-    margin-top: 180px;
+    margin-top: 50px;
 }
 
+.textInputStyle{
+    border:none;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    background-color: #013e66;
+}
 .floating {  
     animation-name: floating;
     animation-duration: 3s;
