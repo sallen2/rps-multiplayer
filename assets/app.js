@@ -70,13 +70,7 @@ function gameProtection(){
     connectionsRef.on("value", snap=>{
         let players = Object.keys(snap.val())
         idRef = connectionsRef.child(`${players[2]}`)
-        idRef.remove()
-            .then(function () {
-                console.log("Remove succeeded.")
-            })
-            .catch(function (error) {
-                console.log("Remove failed: " + error.message)
-            });
+        idRef.remove();
     });
 }
 function getUsersGuesses() {
