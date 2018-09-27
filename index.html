@@ -12,12 +12,13 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Righteous" rel="stylesheet">
+    <script src="https://unpkg.com/scrollreveal"></script>
     <link rel="stylesheet" href="./assets/style.css">
     <title>RPS Multiplayer</title>
 </head>
 <body>
     <div class="text-center marginTitle container">
-        <h1>Online </h1>
+        <h1>Online Multiplayer</h1>
         <h1>Rock, Paper, Scissors</h1>
     </div>
     <br>
@@ -32,22 +33,26 @@
         </div>
     </div>
     <br>
-    <h1 class="text-center">We have <span id="players"></span> players</h1>
+    <h1 class="text-center">We have <span id="players"></span> <span id="becomePlural">player</span></h1>
     <h2 class="text-center" id="systemMessage"></h2>
+    <div class="text-center">
+        <em id="emMessageHere"></em>
+    </div>
     <h2 class="text-center" id="letsPlay"></h2>
     <h3 class='text-center' id="result"></h3>
-    <div class="moveLeft container">
-        <div class="row">
-            <div class="text-center col-md-6">
-                <input id="name" class="textInputStyle form-control" type="text" placeholder="Name:">
+    <div class="text-justify container">
+        <div class="myBorder row">
+            <div class="changeMargin text-center col-md-6">
+                <input id="name" class="textInputStyle form-control" type="text" placeholder="Gamer Tag:">
                 <input id="message" class="textInputStyle form-control" type="text" placeholder="Message:">
             </div>
             <div class="text-content style col-md-6" id="messageHere">
+                <h4>Chat Room <i class="fas fa-comments"></i></h4>
 
             </div>
         </div>
     </div>
-    <div class="text-center"><button class="btn btn-info" id="restart">RESTART</button></div>
+    <div class="text-center"><button class="btn btn-info" id="restart">Play Again</button></div>
 <script src="./assets/app.js"></script>
 </body>
 </html>

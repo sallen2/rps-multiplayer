@@ -1,14 +1,19 @@
+html.sr .load-hidden {
+    visibility: hidden;
+}
 body{
     background-color: #013e66;
     font-family: 'Righteous', cursive;
     color: black;
 }
-
 .btnStyle{
     border: none;
     background: none;
 }
-
+.not-active {
+    pointer-events: none;
+    cursor: default;
+  }
 .marginTitle{
     margin-top: 50px;
 }
@@ -50,7 +55,15 @@ body{
     width: 400px;
     border-radius: 5%;
 }
-
+#messageHere{
+    margin-top: 30px;
+}
+.changeMargin{
+    margin-top: 20px;
+}
+#messageHere{
+    word-wrap: break-word;
+}
 @keyframes floating {
     from { transform: translate(0,  0px); }
     65%  { transform: translate(0, 15px); }
